@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+@theme {
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --color-zyphora-red: #E60000;
+  --color-zyphora-dark: #050505;
+  --color-zyphora-card: #111111;
+  --color-zyphora-border: #222222;
+}
+
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-zyphora-dark);
+  color: white;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+a, button, input, select, textarea {
+  cursor: none;
+}
+
+h1, h2, h3, h4, h5, h6, .font-bebas {
+  font-family: var(--font-bebas);
+  text-transform: uppercase;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-zyphora-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-zyphora-border);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-zyphora-red);
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  background: var(--color-zyphora-red);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(230, 0, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), background-color 0.3s var(--ease-out-expo);
+}
+.cursor-ring.hovered {
+  width: 60px; height: 60px;
+  background-color: rgba(230, 0, 0, 0.1);
+  border-color: rgba(230, 0, 0, 0.8);
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: var(--color-zyphora-red);
+  z-index: 10000;
+  transform-origin: left;
+  box-shadow: 0 0 10px rgba(230, 0, 0, 0.8);
+}
+
+.bg-heat {
+  background: linear-gradient(45deg, #050505, #111111, #2a0000, #050505);
+  background-size: 400% 400%;
+  animation: heat-bg 15s ease infinite;
+}
+@keyframes heat-bg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 20s linear infinite;
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.letter-left {
+  display: inline-block;
+  transform: translateX(-50vw);
+  opacity: 0;
+  transition: transform 1.2s var(--ease-out-expo), opacity 1.2s var(--ease-out-expo);
+}
+.letter-right {
+  display: inline-block;
+  transform: translateX(50vw);
+  opacity: 0;
+  transition: transform 1.2s var(--ease-out-expo), opacity 1.2s var(--ease-out-expo);
+}
+.animate-in .letter-left, .animate-in .letter-right {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.blur-sharp {
+  filter: blur(12px);
+  opacity: 0;
+  transition: filter 1.5s var(--ease-out-expo), opacity 1.5s var(--ease-out-expo);
+  transition-delay: 0.4s;
+}
+.animate-in .blur-sharp {
+  filter: blur(0);
+  opacity: 1;
+}
+
+.cta-button {
+  position: relative;
+  border: 1px solid var(--color-zyphora-red);
+  box-shadow: 0 0 15px rgba(230, 0, 0, 0.3);
+  animation: pulse-glow 2s infinite;
+  transition: all 0.4s var(--ease-out-expo);
+  overflow: hidden;
+  z-index: 1;
+}
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--color-zyphora-red);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s var(--ease-out-expo);
+  z-index: -1;
+}
+.cta-button:hover {
+  color: white;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(230, 0, 0, 0.6);
+  animation: none;
+}
+.cta-button:hover::before {
+  transform: scaleY(1);
+}
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 10px rgba(230, 0, 0, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(230, 0, 0, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(230, 0, 0, 0.3); }
+}
+
+.slide-left {
+  transform: translateX(-100px);
+  opacity: 0;
+  transition: all 1.2s var(--ease-out-expo);
+}
+.slide-right {
+  transform: translateX(100px);
+  opacity: 0;
+  transition: all 1.2s var(--ease-out-expo);
+}
+.animate-in .slide-left, .animate-in .slide-right {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.rise-up {
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 1s var(--ease-out-expo);
+}
+.animate-in .rise-up {
+  transform: translateY(0);
+  opacity: 1;
+}
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+
+.service-card {
+  transition: transform 0.5s var(--ease-out-expo);
+  position: relative;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--color-zyphora-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+.service-card:hover {
+  transform: translateY(-12px);
+}
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.clip-reveal {
+  clip-path: inset(100% 0 0 0);
+  opacity: 0;
+  transition: clip-path 1.2s var(--ease-out-expo), opacity 1.2s var(--ease-out-expo);
+}
+.animate-in .clip-reveal {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+.typewriter-char {
+  opacity: 0;
+  transform: translateY(10px);
+  display: inline-block;
+  transition: opacity 0.1s linear, transform 0.3s var(--ease-out-expo);
+}
+.animate-in .typewriter-char {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-bg {
+  transition: background-color 1.5s var(--ease-out-expo);
+}
+.animate-in.contact-bg {
+  animation: flash-bg 2s var(--ease-out-expo) forwards;
+}
+@keyframes flash-bg {
+  0% { background-color: #050505; }
+  15% { background-color: #3a0000; }
+  100% { background-color: #050505; }
+}
+
+.slide-up-field {
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 0.8s var(--ease-out-expo);
+}
+.animate-in .slide-up-field {
+  transform: translateY(0);
+  opacity: 1;
+}
+.delay-field-1 { transition-delay: 0.2s; }
+.delay-field-2 { transition-delay: 0.4s; }
+
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 100%; height: 2px;
+  background: var(--color-zyphora-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
